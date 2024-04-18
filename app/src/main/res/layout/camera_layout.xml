@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/cyan_blue1"
+    tools:context=".camera">
+
+    <androidx.camera.view.PreviewView
+        android:id="@+id/previewView"
+        android:layout_width="300dp"
+        android:layout_height="400dp"
+        android:layout_centerInParent="true" />
+
+    <Button
+        android:id="@+id/btnshutter"
+        android:layout_width="75dp"
+        android:layout_height="75dp"
+        android:layout_below="@+id/previewView"
+        android:layout_centerInParent="true"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="32dp"
+        android:padding="8dp"
+        app:icon="@android:drawable/ic_menu_camera"
+        app:iconGravity="textTop"
+        app:iconSize="50dp" />
+
+    <TextView
+        android:id="@+id/textView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/previewView"
+        android:layout_centerInParent="true"
+        android:fontFamily="@font/roboto_slab_bold"
+        android:textColor="@color/white"
+        android:text="FaultyCheck"
+        android:textSize="48sp"
+        android:layout_marginBottom="50dp"
+        />
+
+
+</RelativeLayout>

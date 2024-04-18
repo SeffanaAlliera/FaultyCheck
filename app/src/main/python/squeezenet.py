@@ -1,0 +1,61 @@
+import torch
+import torchvision.transforms as transforms
+from PIL import Image
+from io import BytesIO
+import os
+import time
+
+# Get the path to the model file in the assets folder
+model_path = os.path.join(os.path.dirname(__file__), "pcbsqueezenet.pt")
+
+# Load the converted TorchScript model
+model = torch.jit.load(model_path, map_location=torch.device('cpu'))
+
+# Define transformation for test data
+transform = transforms.Compose([
+    transforms.Resize(256),
+    transforms.CenterCrop(224),
+    transforms.ToTensor(),
+    transforms.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225])
+])
+
+# Define class labels
+class_labels = [
+    'Faulty Capacitor', 'Faulty Fuse', 'Faulty Resistor', 'Faulty Transistor', 'Non-Faulty Capacitor', 'Non-Faulty Fuse', 'Non-Faulty Resistor', 'Non-Faulty Transistor'
+]
+
+# Function to predict the class, show confidence scores, and the inference time
+def predict(image_bytes):
+    start_time = time.time()  # Start measuring inference time
+    image = Image.open(BytesIO(image_bytes))
+    image = transform(image).unsqueeze(0)
+    with torch.no_grad():
+        outputs = model(image)
+    probabilities = torch.softmax(outputs, dim=1)[0]
+    predicted_class = torch.argmax(probabilities).item()
+
+    # Convert probabilities to percentage
+    confidence_scores = {class_labels[i]: f"{prob.item() * 100:.2f}%" for i, prob in enumerate(probabilities)}
+
+    # Get the predicted class label
+    predicted_label = class_labels[predicted_class]
+
+    # Measure inference time in milliseconds
+    end_time = time.time()
+    inference_time = (end_time - start_time) * 1000
+
+    # Format the result
+    result_str = f""
+
+    # Append confidence scores for all classes
+    for label, confidence in confidence_scores.items():
+        result_str += f"\t{label}: {confidence}\n"
+
+    # Convert inference time to string
+    inference_time_str = f"{inference_time:.2f} ms"
+
+    return [predicted_label, inference_time_str, result_str]
+
+
+
+

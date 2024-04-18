@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/cyan_blue1"
+    tools:context=".result">
+
+    <TextView
+        android:id="@+id/resulttext2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="20dp"
+        android:fontFamily="@font/roboto_slab"
+        android:textColor="@color/white"
+        android:padding="8dp"
+        android:text="Result:"
+        android:textSize="48sp" />
+
+    <ImageView
+        android:id="@+id/imageresult"
+        android:layout_width="200dp"
+        android:layout_height="300dp"
+        android:layout_below="@+id/resulttext2"
+        android:layout_centerInParent="true"
+        android:layout_marginTop="10dp"
+        android:scaleType="fitCenter" />
+
+    <TextView
+        android:id="@+id/txtvPrediction"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/imageresult"
+        android:layout_centerHorizontal="true"
+        android:layout_marginLeft="50dp"
+        android:layout_marginTop="20dp"
+        android:padding="8dp"
+        android:text="Processing..."
+        android:textColor="@color/black"
+        android:textSize="12sp"
+        android:background="@drawable/rounded_rectangle" />
+
+</RelativeLayout>
